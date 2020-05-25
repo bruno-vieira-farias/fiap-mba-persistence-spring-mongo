@@ -1,0 +1,19 @@
+POST http://localhost:8080/api/pedido
+Content-Type: application/json
+
+{
+"cpfCliente": "12345678945",
+  "itensPedido": [
+    {
+      "codigoProduto": "321A",
+      "quantidade": 2
+    }
+  ]
+
+}
+
+###
+GET http://localhost:8080/api/pedido/6
+Accept: application/json
+
+###

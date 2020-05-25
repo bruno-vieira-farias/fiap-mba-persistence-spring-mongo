@@ -1,0 +1,24 @@
+POST http://localhost:8080/api/estoque-produto
+Content-Type: application/json
+
+{
+  "codigoProduto": "321A",
+  "quantidade": 10
+}
+
+###
+
+PUT http://localhost:8080/api/estoque-produto
+Content-Type: application/json
+
+{
+  "codigoProduto": "321A",
+  "quantidade": 5
+}
+
+###
+
+GET http://localhost:8080/api/estoque-produto/321A
+Accept: application/json
+
+###
