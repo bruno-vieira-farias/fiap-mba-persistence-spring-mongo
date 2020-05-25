@@ -1,16 +1,14 @@
 package br.com.fiap.mba.persistence.spring.persistence.entrypoints.cliente;
 
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.Cliente;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.ClienteJaExisteException;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.ClienteNaoEncontradoException;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.ClienteService;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.EspecificacaoCliente;
+import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.*;
 import br.com.fiap.mba.persistence.spring.persistence.entrypoints.cliente.dto.ClienteDto;
 import br.com.fiap.mba.persistence.spring.persistence.entrypoints.cliente.dto.EnderecoDto;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cliente")
@@ -34,12 +32,15 @@ public class ClienteController {
             EspecificacaoCliente especificacaoCliente = new EspecificacaoCliente(
                 clienteDto.getNome(),
                 clienteDto.getCpf(),
-                clienteDto.getEndereco().getLogradouro(),
-                clienteDto.getEndereco().getNumero(),
-                clienteDto.getEndereco().getComplemento(),
-                clienteDto.getEndereco().getCep(),
-                clienteDto.getEndereco().getCidade(),
-                clienteDto.getEndereco().getEstado()
+                clienteDto.getEnderecos().stream()
+                        .map( enderecoDto -> new EspecificacaoEndereco(
+                                enderecoDto.getLogradouro(),
+                                enderecoDto.getNumero(),
+                                enderecoDto.getComplemento(),
+                                enderecoDto.getCep(),
+                                enderecoDto.getCidade(),
+                                enderecoDto.getEstado())
+                ).collect(Collectors.toList())
             );
 
             clienteService.cadastraCliente(especificacaoCliente);
@@ -61,14 +62,15 @@ public class ClienteController {
             return new ClienteDto(
                     cliente.getNome(),
                     cliente.getCpf(),
-                    new EnderecoDto(
-                            cliente.getEndereco().getLogradouro(),
-                            cliente.getEndereco().getNumero(),
-                            cliente.getEndereco().getComplemento(),
-                            cliente.getEndereco().getCep(),
-                            cliente.getEndereco().getCidade(),
-                            cliente.getEndereco().getEstado()
-                    )
+                    cliente.getEnderecos().stream()
+                            .map(endereco ->new EnderecoDto(
+                                            endereco.getLogradouro(),
+                                            endereco.getNumero(),
+                                            endereco.getComplemento(),
+                                            endereco.getCep(),
+                                            endereco.getCidade(),
+                                            endereco.getEstado())
+                    ).collect(Collectors.toList())
             );
         } catch (ClienteNaoEncontradoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

@@ -4,10 +4,6 @@ spring:
       uri: mongodb+srv://avaliacaoPersistence:OLJjEK6A0Gq9miFK@cluster0-8siwt.gcp.mongodb.net/avaliacaoPersistence?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
       database: avaliacaoPersistence
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-
 server:
   servlet:
     context-path: /api

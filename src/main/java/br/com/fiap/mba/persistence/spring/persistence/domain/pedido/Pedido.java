@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Pedido {
     @Id
     private String id;

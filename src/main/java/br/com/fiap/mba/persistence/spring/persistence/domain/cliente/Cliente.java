@@ -3,23 +3,23 @@ package br.com.fiap.mba.persistence.spring.persistence.domain.cliente;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
-
 
 public class Cliente {
     @Id
     private String id;
     private String nome;
     private String cpf;
-    private Endereco endereco;
+    private List<Endereco> enderecos;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, Endereco endereco) {
+    public Cliente(String nome, String cpf, List<Endereco> enderecos) {
         this.nome = nome;
         this.cpf = cpf;
-        this.endereco = endereco;
+        this.enderecos = enderecos;
     }
 
     public String getId() {
@@ -46,12 +46,12 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     @Override

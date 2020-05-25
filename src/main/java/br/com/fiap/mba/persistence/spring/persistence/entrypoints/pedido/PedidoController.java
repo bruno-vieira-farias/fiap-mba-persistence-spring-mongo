@@ -67,14 +67,15 @@ public class PedidoController {
             ClienteDto clienteDto = new ClienteDto(
                     pedido.getCliente().getNome(),
                     pedido.getCliente().getCpf(),
-                    new EnderecoDto(
-                            pedido.getCliente().getEndereco().getLogradouro(),
-                            pedido.getCliente().getEndereco().getNumero(),
-                            pedido.getCliente().getEndereco().getComplemento(),
-                            pedido.getCliente().getEndereco().getCep(),
-                            pedido.getCliente().getEndereco().getCidade(),
-                            pedido.getCliente().getEndereco().getEstado()
-                    )
+                    pedido.getCliente().getEnderecos().stream().map(
+                            endereco ->   new EnderecoDto(
+                                    endereco.getLogradouro(),
+                                    endereco.getNumero(),
+                                    endereco.getComplemento(),
+                                    endereco.getCep(),
+                                    endereco.getCidade(),
+                                    endereco.getEstado())
+                    ).collect(Collectors.toList())
             );
 
             List<ConsultaItemPedidoDto> itensPedidoDto = pedido.getItens().stream().map(item ->

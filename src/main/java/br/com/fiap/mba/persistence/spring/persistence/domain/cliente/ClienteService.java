@@ -3,6 +3,9 @@ package br.com.fiap.mba.persistence.spring.persistence.domain.cliente;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClienteService {
     private final ClienteRepository clienteRepository;
@@ -35,12 +38,18 @@ public class ClienteService {
         Cliente cliente = buscaCliente(especificacaoCliente.getCpf());
 
         cliente.setNome(especificacaoCliente.getNome());
-        cliente.getEndereco().setLogradouro(especificacaoCliente.getLogradouro());
-        cliente.getEndereco().setNumero(especificacaoCliente.getNumero());
-        cliente.getEndereco().setComplemento(especificacaoCliente.getComplemento());
-        cliente.getEndereco().setCep(especificacaoCliente.getCep());
-        cliente.getEndereco().setCidade(especificacaoCliente.getCidade());
-        cliente.getEndereco().setEstado(especificacaoCliente.getEstado());
+
+        List<Endereco> enderecoAtualizados = especificacaoCliente.getEspecificacaoEnderecos().stream()
+                .map(especificacaoEndereco -> new Endereco(
+                        especificacaoEndereco.getLogradouro(),
+                        especificacaoEndereco.getNumero(),
+                        especificacaoEndereco.getComplemento(),
+                        especificacaoEndereco.getCep(),
+                        especificacaoEndereco.getCidade(),
+                        especificacaoEndereco.getEstado())
+                ).collect(Collectors.toList());
+
+        cliente.setEnderecos(enderecoAtualizados);
 
         clienteRepository.save(cliente);
     }

@@ -1,9 +1,6 @@
 package br.com.fiap.mba.persistence.spring.persistence.entrypoints.demo;
 
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.Cliente;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.ClienteJaExisteException;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.ClienteService;
-import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.EspecificacaoCliente;
+import br.com.fiap.mba.persistence.spring.persistence.domain.cliente.*;
 import br.com.fiap.mba.persistence.spring.persistence.domain.estoque.Estoque;
 import br.com.fiap.mba.persistence.spring.persistence.domain.estoque.EstoqueService;
 import br.com.fiap.mba.persistence.spring.persistence.domain.pedido.*;
@@ -13,12 +10,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 
 @RestController
@@ -46,6 +45,7 @@ public class DemonstracaoController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Demonstraçãp realizada com sucesso"),
             @ApiResponse(code = 500, message = "Erro ao tentar realizar a demonstração")})
+    @Transactional
     public ResultadoDemonstracaoDto handle() {
         ResultadoDemonstracaoDto resultado = null;
 
@@ -59,8 +59,8 @@ public class DemonstracaoController {
                 resultado = new ResultadoDemonstracaoDto(cliente, produto, estoque, pedido);
 
             } catch (ClienteJaExisteException e) {
-                cliente = clienteService.buscaCliente("12345678910");
-                produto = produtoService.buscaProduto("5485");
+                cliente = clienteService.buscaCliente("12345678915");
+                produto = produtoService.buscaProduto("5490");
                 estoque = estoqueService.buscaEstoqueDoProduto(produto);
                 pedido = pedidoService.consultaPedidoDoCliente(cliente).get(0);
 
@@ -86,7 +86,7 @@ public class DemonstracaoController {
 
     private Produto cadastraProdutoDemostracao() throws ProdutoJaCadastradoException {
         return produtoService.cadastraProduto(
-                "5485",
+                "5490",
                 "Kindle 10a. geração com iluminação embutida – Cor Preta",
                 BigDecimal.valueOf(349));
     }
@@ -94,7 +94,14 @@ public class DemonstracaoController {
     private Cliente cadastraClienteDemonstracao() throws ClienteJaExisteException {
         return clienteService.cadastraCliente(
                 new EspecificacaoCliente(
-                        "Raimundo da Silva", "12345678910", "Rua do sucesso", 10, null, "032212222", "São Paulo", "SP"));
+                        "Raimundo da Silva",
+                        "12345678915",
+                        Arrays.asList(
+                                new EspecificacaoEndereco("Rua do sucesso", 10, null, "032212222", "São Paulo", "SP"),
+                                new EspecificacaoEndereco("Rua praia do sol", 10, null, "032212222", "Piracaia", "SP")
+                        )
+                )
+        );
     }
 
 }

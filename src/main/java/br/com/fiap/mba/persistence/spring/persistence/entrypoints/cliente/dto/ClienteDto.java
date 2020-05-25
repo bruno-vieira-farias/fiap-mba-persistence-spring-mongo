@@ -2,16 +2,18 @@ package br.com.fiap.mba.persistence.spring.persistence.entrypoints.cliente.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 public class ClienteDto {
     @ApiModelProperty(example = "Bruno Farias")
     private String nome;
     private String cpf;
-    private EnderecoDto endereco;
+    private List<EnderecoDto> enderecos;
 
-    public ClienteDto(String nome, String cpf, EnderecoDto endereco) {
+    public ClienteDto(String nome, String cpf, List<EnderecoDto> enderecos) {
         this.nome = nome;
         this.cpf = cpf;
-        this.endereco = endereco;
+        this.enderecos = enderecos;
     }
 
     public String getNome() {
@@ -30,11 +32,11 @@ public class ClienteDto {
         this.cpf = cpf;
     }
 
-    public EnderecoDto getEndereco() {
-        return endereco;
+    public List<EnderecoDto> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEndereco(EnderecoDto endereco) {
-        this.endereco = endereco;
+    public void setEnderecos(List<EnderecoDto> enderecos) {
+        this.enderecos = enderecos;
     }
 }
