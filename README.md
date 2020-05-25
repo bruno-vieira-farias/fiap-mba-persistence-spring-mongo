@@ -1,6 +1,6 @@
 # Java Persistence
 
- Trabalho final para a disciplina de Persistência em Spring Data JPA com Mysql mininstrada por Prof. MSc. Rafael Matsuyama. <p>
+ Trabalho final para a disciplina de Persistência em Spring com MongoDb mininstrada por Prof. MSc. Rafael Matsuyama. <p>
  
  O projeto foi desenvolvido utilizando algumas tecnicas do DDD, em que se busca umq clareza
  nos conceitos do dominio e sua independencia entre as demais camadas
@@ -12,13 +12,9 @@
  e a entidade Pedido com suas ações especificas.<p>
  Foram disponibilizados endpoints http que podem ser consultados pelo swagger.<p> 
 
-### MER 
-![MER](/doc/images/MER.PNG)
-
 ### Pré-Requisitos
 - Java 8
-- Mysql 8
-- Informar no arquivo `application.yaml` valores válidos para as chaves `username` e `root` para 
+- Informar no arquivo `application.yaml` valores válidos para as chaves `uri` do mongo db para 
 o funcionamento correto do banco de dados.
 
 ### Run
