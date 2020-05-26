@@ -2,7 +2,7 @@
 
  Trabalho final para a disciplina de Persistência em Spring com MongoDb mininstrada por Prof. MSc. Rafael Matsuyama. <p>
  
- O projeto foi desenvolvido utilizando algumas tecnicas do DDD, em que se busca umq clareza
+ O projeto foi desenvolvido utilizando algumas tecnicas do DDD, em que se busca uma clareza
  nos conceitos do dominio e sua independencia entre as demais camadas
  do sistema.<p>
  Os dos pacotes do dominio foram agrupados por entidades, assim, as classes que tentem a 
