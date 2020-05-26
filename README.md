@@ -1,11 +1,11 @@
 # Java Persistence
 
- Trabalho final para a disciplina de Persistência em Spring com MongoDb mininstrada por Prof. MSc. Rafael Matsuyama. <p>
+ Trabalho final para a disciplina de Persistência em Spring com MongoDb mininstrada pelo Prof. MSc. Rafael Matsuyama. <p>
  
- O projeto foi desenvolvido utilizando algumas tecnicas do DDD, em que se busca uma clareza
- nos conceitos do dominio e sua independencia entre as demais camadas
+ O projeto foi desenvolvido utilizando algumas técnicas do DDD, em que se busca uma clareza
+ nos conceitos do domínio e sua independência entre as demais camadas
  do sistema.<p>
- Os dos pacotes do dominio foram agrupados por entidades, assim, as classes que tentem a 
+ Os dos pacotes do domínio foram agrupados por entidades, assim, as classes que tentem a 
  serem alteradas com a mesma frequência ficam próximas, facilitando as manutenções.<p>
  Foi utilizado o Spring boot que além de robusto possui uma utilização simples e ágil.<p>
  Foram criadas as entidades Cliente, Produto, Estoque com seus respectivos CRUDs 
